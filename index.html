@@ -163,7 +163,7 @@
       grid-template-columns: 1fr 1fr;
       gap: 10px;
     }
-    @media (max-width: 960px) { .hero-right { display: none; } }
+    @media (max-width: 960px) { .hero-right { width: 100%; } }
 
     .spec-tile {
       border: var(--border);
@@ -603,6 +603,12 @@
 
       /* Education */
       .edu-grid { grid-template-columns: 1fr; }
+
+      /* Specialty tiles */
+      .hero-right { width: 100%; grid-template-columns: 1fr 1fr; gap: 8px; }
+      .spec-tile { min-height: 130px; padding: 18px 16px; }
+      .spec-label { font-size: 12px; }
+      .spec-desc { display: none; }
 
       /* About */
       .about-text { font-size: 14px; }
