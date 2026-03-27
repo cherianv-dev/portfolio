@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cherian Varghese — Growth Marketer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #F7F3E9;
+      --black: #0D0D0D;
+      --yellow: #FFE033;
+      --pink: #FF4D6D;
+      --teal: #00BFC0;
+      --purple: #7B2FFF;
+      --green: #00C853;
+      --white: #FFFFFF;
+      --border: 2.5px solid #0D0D0D;
+      --shadow: 5px 5px 0px #0D0D0D;
+      --shadow-sm: 3px 3px 0px #0D0D0D;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Space Grotesk', Arial, sans-serif;
+      background: var(--bg);
+      color: var(--black);
+      overflow-x: hidden;
+    }
+
+    /* ═══ NAV ═══ */
+    nav {
+      position: fixed;
+      top: 0; width: 100%; z-index: 100;
+      background: var(--black);
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+      border-bottom: 2.5px solid #222;
+    }
+    .nav-logo {
+      font-family: 'Space Mono', monospace;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--yellow);
+      letter-spacing: 1px;
+    }
+    .nav-links { display: flex; gap: 2px; list-style: none; }
+    .nav-links a {
+      color: #888;
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 5px 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: color 0.12s, background 0.12s;
+      border: 2px solid transparent;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--black);
+      background: var(--yellow);
+      border-color: var(--yellow);
+    }
+
+    /* ═══ BTN ═══ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 26px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      border: var(--border);
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
+      user-select: none;
+    }
+    .btn:hover { transform: translate(-2px, -2px); box-shadow: 7px 7px 0 var(--black); }
+    .btn:active { transform: translate(5px, 5px); box-shadow: none; }
+    .btn-yellow  { background: var(--yellow); color: var(--black); }
+    .btn-white   { background: var(--white);  color: var(--black); }
+    .btn-dark    { background: var(--black);  color: var(--white); }
+
+    /* ═══ HERO ═══ */
+    #hero {
+      min-height: 100vh;
+      padding: 100px 56px 80px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 48px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-left {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      background: var(--yellow);
+      border: var(--border);
+      box-shadow: var(--shadow-sm);
+      padding: 5px 14px;
+      margin-bottom: 28px;
+      width: fit-content;
+    }
+    .hero-pill-dot {
+      width: 7px; height: 7px;
+      background: var(--black);
+      border-radius: 50%;
+      animation: blink 1.4s infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+    .hero-name {
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(52px, 9vw, 104px);
+      font-weight: 700;
+      line-height: 0.95;
+      letter-spacing: -3px;
+      margin-bottom: 20px;
+    }
+    .hero-name .pink { color: var(--pink); }
+
+    .hero-sub {
+      font-size: clamp(15px, 1.6vw, 19px);
+      font-weight: 500;
+      color: #555;
+      max-width: 540px;
+      line-height: 1.6;
+      margin-bottom: 36px;
+    }
+    .hero-sub b { color: var(--black); }
+
+    .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    /* Specialty tiles */
+    .hero-right {
+      flex-shrink: 0;
+      width: 420px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    @media (max-width: 960px) { .hero-right { display: none; } }
+
+    .spec-tile {
+      border: var(--border);
+      box-shadow: var(--shadow-sm);
+      padding: 26px 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 175px;
+      cursor: default;
+      transition: transform 0.13s ease, box-shadow 0.13s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .spec-tile:hover {
+      transform: translate(-3px, -3px);
+      box-shadow: 6px 6px 0 var(--black);
+    }
+    .spec-num {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      opacity: 0.45;
+      letter-spacing: 1px;
+    }
+    .spec-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.25;
+      margin-top: auto;
+    }
+    .spec-desc {
+      font-size: 11px;
+      font-weight: 500;
+      line-height: 1.4;
+      margin-top: 8px;
+      opacity: 0;
+      transform: translateY(5px);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+    .spec-tile:hover .spec-desc {
+      opacity: 0.65;
+      transform: translateY(0);
+    }
+
+    /* ═══ STATS BAR ═══ */
+    #statsbar {
+      background: var(--black);
+      border-top: var(--border);
+      border-bottom: var(--border);
+      padding: 28px 0;
+      overflow: hidden;
+    }
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      width: 100%;
+    }
+    .sbar-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      padding: 28px 24px;
+      border-right: 1px solid #2a2a2a;
+      text-align: center;
+    }
+    .sbar-num {
+      font-family: 'Space Mono', monospace;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--yellow);
+      white-space: nowrap;
+      line-height: 1.1;
+    }
+    .sbar-lbl {
+      font-size: 12px;
+      color: #777;
+      line-height: 1.4;
+      font-weight: 500;
+      max-width: 180px;
+    }
+
+    /* ═══ SHARED SECTION ═══ */
+    .section-wrap {
+      padding: 80px 56px;
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+    .section-eyebrow {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: #999;
+      display: block;
+      margin-bottom: 10px;
+    }
+    .section-title {
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(26px, 3.5vw, 40px);
+      font-weight: 700;
+      letter-spacing: -1px;
+      line-height: 1.1;
+      margin-bottom: 40px;
+    }
+
+    /* ═══ ABOUT ═══ */
+    #about { border-bottom: var(--border); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 28px;
+      align-items: start;
+    }
+    @media (max-width: 720px) { .about-grid { grid-template-columns: 1fr; } }
+
+    .about-text {
+      font-size: 15.5px;
+      line-height: 1.75;
+      color: #3a3a3a;
+    }
+    .about-text b { color: var(--black); }
+    .about-text p + p { margin-top: 14px; }
+
+    .about-cards { display: flex; flex-direction: column; gap: 10px; }
+
+    .about-card {
+      background: var(--white);
+      border: var(--border);
+      box-shadow: var(--shadow-sm);
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: transform 0.12s, box-shadow 0.12s;
+    }
+    .about-card:hover { transform: translate(-2px,-2px); box-shadow: var(--shadow); }
+
+    .about-icon {
+      width: 38px; height: 38px;
+      border: var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 17px;
+      flex-shrink: 0;
+    }
+    .about-card-title { font-size: 13px; font-weight: 700; }
+    .about-card-sub { font-size: 11.5px; color: #777; margin-top: 1px; }
+
+    /* ═══ EXPERIENCE ═══ */
+    #experience { border-bottom: var(--border); }
+
+    .exp-card {
+      background: var(--white);
+      border: var(--border);
+      box-shadow: var(--shadow);
+      margin-bottom: 18px;
+      overflow: hidden;
+    }
+    .exp-head {
+      padding: 20px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      user-select: none;
+      gap: 16px;
+      transition: background 0.1s;
+    }
+    .exp-head:hover { background: #fafafa; }
+
+    .exp-left { flex: 1; min-width: 0; }
+    .exp-title { font-size: 16px; font-weight: 700; }
+    .exp-co { font-size: 12px; color: #777; font-weight: 500; margin-top: 2px; }
+
+    .exp-right { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+    .exp-period {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: #999;
+    }
+    .exp-tog {
+      width: 30px; height: 30px;
+      border: var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 700;
+      font-family: 'Space Mono', monospace;
+      flex-shrink: 0;
+      transition: background 0.12s, color 0.12s;
+    }
+
+    .exp-body {
+      border-top: var(--border);
+      padding: 20px 22px;
+      display: none;
+    }
+    .exp-body.open { display: block; }
+
+    .exp-tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 3px 9px;
+      border: var(--border);
+      margin-bottom: 14px;
+    }
+
+    .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+    .exp-bullets li {
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: #3a3a3a;
+      padding-left: 18px;
+      position: relative;
+    }
+    .exp-bullets li::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: var(--pink);
+      font-weight: 700;
+    }
+    .exp-bullets b { color: var(--black); }
+
+    /* ═══ SKILLS ═══ */
+    #skills { border-bottom: var(--border); }
+
+    .skill-filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+    .filt {
+      padding: 7px 16px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      border: var(--border);
+      background: var(--white);
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: transform 0.1s, box-shadow 0.1s, background 0.1s, color 0.1s;
+    }
+    .filt:hover { transform: translate(-1px,-1px); box-shadow: 4px 4px 0 var(--black); }
+    .filt.on { background: var(--black); color: var(--white); }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 14px;
+    }
+    .skill-card {
+      border: var(--border);
+      box-shadow: var(--shadow-sm);
+      padding: 16px 18px;
+      background: var(--white);
+      transition: transform 0.12s, box-shadow 0.12s, opacity 0.2s;
+    }
+    .skill-card:hover { transform: translate(-2px,-2px); box-shadow: var(--shadow); }
+    .skill-card.dim { opacity: 0.18; }
+
+    .skill-cat {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      padding: 3px 9px;
+      border: var(--border);
+      margin-bottom: 9px;
+    }
+    .skill-tools { font-size: 13px; color: #555; line-height: 1.65; }
+
+    /* ═══ EDUCATION ═══ */
+    #education { border-bottom: var(--border); }
+
+    .edu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 14px;
+      margin-bottom: 40px;
+    }
+    .edu-card {
+      border: var(--border);
+      box-shadow: var(--shadow);
+      padding: 20px;
+      background: var(--white);
+      transition: transform 0.12s, box-shadow 0.12s;
+    }
+    .edu-card:hover { transform: translate(-2px,-2px); box-shadow: 7px 7px 0 var(--black); }
+
+    .edu-yr {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: #999;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .edu-deg { font-size: 15px; font-weight: 700; line-height: 1.3; margin-bottom: 4px; }
+    .edu-sch { font-size: 12px; color: #777; margin-bottom: 10px; line-height: 1.4; }
+    .edu-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 9px;
+      background: var(--yellow);
+      border: var(--border);
+    }
+
+    .certs-title { font-family: 'Space Mono', monospace; font-size: 16px; font-weight: 700; margin-bottom: 14px; }
+    .cert-list { display: flex; flex-direction: column; gap: 9px; }
+    .cert-item {
+      border: var(--border);
+      background: var(--white);
+      box-shadow: var(--shadow-sm);
+      padding: 12px 16px;
+      font-size: 13.5px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: transform 0.12s, box-shadow 0.12s;
+    }
+    .cert-item:hover { transform: translate(-2px,-2px); box-shadow: var(--shadow); }
+    .cert-dot { width: 9px; height: 9px; border: var(--border); flex-shrink: 0; }
+
+    /* ═══ CONTACT ═══ */
+    #contact {
+      background: var(--black);
+      padding: 72px 56px;
+      text-align: center;
+      border-top: var(--border);
+    }
+    #contact .section-eyebrow { color: #444; }
+    #contact .section-title { color: var(--white); margin-bottom: 12px; }
+    .contact-sub { color: #666; font-size: 15px; max-width: 440px; margin: 0 auto 36px; line-height: 1.6; }
+
+    .contact-chips { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 32px; }
+    .contact-chip {
+      padding: 10px 20px;
+      border: 2px solid #2a2a2a;
+      font-size: 13px;
+      font-weight: 600;
+      color: #888;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: border-color 0.15s, color 0.15s;
+      cursor: default;
+    }
+    .contact-chip:hover { border-color: var(--yellow); color: var(--yellow); }
+
+    /* ═══ FADE IN ═══ */
+    .fi {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.45s ease, transform 0.45s ease;
+    }
+    .fi.vis { opacity: 1; transform: translateY(0); }
+    .fi:nth-child(2) { transition-delay: 0.07s; }
+    .fi:nth-child(3) { transition-delay: 0.14s; }
+    .fi:nth-child(4) { transition-delay: 0.21s; }
+    .fi:nth-child(5) { transition-delay: 0.28s; }
+
+    /* ═══ SCROLLBAR ═══ */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--black); }
+  </style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav>
+  <div class="nav-logo">CV</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Work</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ─── HERO ─── -->
+<div id="hero">
+  <div class="hero-left">
+    <div class="hero-pill">
+      <div class="hero-pill-dot"></div>
+      Open to new roles
+    </div>
+    <h1 class="hero-name">Cherian<br><span class="pink">Varghese</span></h1>
+    <p class="hero-sub">
+      <b>Growth marketer</b> with 5+ years at a YC-backed fintech startup.
+    </p>
+    <div class="hero-ctas">
+      <a href="#experience" class="btn btn-yellow">View My Work</a>
+      <a href="#contact" class="btn btn-white">Get in Touch</a>
+    </div>
+  </div>
+
+  <!-- Specialty tiles -->
+  <div class="hero-right">
+    <div class="spec-tile" style="background:var(--yellow);">
+      <span class="spec-num">01</span>
+      <div>
+        <span class="spec-label">0-to-1 GTM</span>
+        <p class="spec-desc">Full-funnel product launches from research to campaign execution.</p>
+      </div>
+    </div>
+    <div class="spec-tile" style="background:var(--pink); color:#fff;">
+      <span class="spec-num" style="color:#fff;">02</span>
+      <div>
+        <span class="spec-label">Paid Acquisition</span>
+        <p class="spec-desc">Meta, LinkedIn, Google — CPL and CAC optimisation.</p>
+      </div>
+    </div>
+    <div class="spec-tile" style="background:var(--teal);">
+      <span class="spec-num">03</span>
+      <div>
+        <span class="spec-label">User Lifecycle Automation</span>
+        <p class="spec-desc">CleverTap, n8n, Pabbly — WhatsApp, Email, SMS, Push.</p>
+      </div>
+    </div>
+    <div class="spec-tile" style="background:var(--purple); color:#fff;">
+      <span class="spec-num" style="color:#fff;">04</span>
+      <div>
+        <span class="spec-label">Content Strategy</span>
+        <p class="spec-desc">SEO-led frameworks, editorial ops, organic distribution.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── STATS BAR ─── -->
+<div id="statsbar">
+  <div class="stats-row">
+    <div class="sbar-item">
+      <span class="sbar-num">5.5</span>
+      <span class="sbar-lbl">Years of Experience</span>
+    </div>
+    <div class="sbar-item">
+      <span class="sbar-num" style="font-size:20px;">CPL / CAC / ROAS</span>
+      <span class="sbar-lbl">Optimisation</span>
+    </div>
+    <div class="sbar-item">
+      <span class="sbar-num" style="font-size:18px;">AI-based</span>
+      <span class="sbar-lbl">Customer Engagement Automation</span>
+    </div>
+    <div class="sbar-item">
+      <span class="sbar-num">270+</span>
+      <span class="sbar-lbl">Articles Published</span>
+    </div>
+  </div>
+</div>
+
+<!-- ─── ABOUT ─── -->
+<div id="about" style="border-bottom: var(--border);">
+  <div class="section-wrap">
+    <span class="section-eyebrow">01 / About</span>
+    <h2 class="section-title">Who I Am</h2>
+    <div class="about-grid">
+      <div class="about-text fi">
+        <p>I'm a <b>growth marketer</b> based in Bengaluru who's spent the last 5+ years at <b>Marketfeed</b>, a Y Combinator-backed B2C fintech startup. I came up through content &amp; SEO, then moved into performance marketing, lifecycle automation, and product GTM, connecting the dots between brand, demand gen, and retention in ways most specialists can't.</p>
+        <p>I'm driven by <b>data and experiments</b>. Marketing should be measurable, and I've built the tooling to make that happen: custom dashboards, automated multi-channel workflows, and structured experiment frameworks. I'm looking for roles where I can own a growth function end-to-end.</p>
+      </div>
+      <div class="about-cards">
+        <div class="about-card fi">
+          <div class="about-icon" style="background:#FFE033;">📍</div>
+          <div>
+            <div class="about-card-title">Bengaluru, India</div>
+            <div class="about-card-sub">Open to remote &amp; hybrid roles</div>
+          </div>
+        </div>
+        <div class="about-card fi">
+          <div class="about-icon" style="background:var(--teal);">🎓</div>
+          <div>
+            <div class="about-card-title">MBA in Marketing</div>
+            <div class="about-card-sub">SSODL, Pune (2025–2027)</div>
+          </div>
+        </div>
+        <div class="about-card fi">
+          <div class="about-icon" style="background:var(--pink);">⚡</div>
+          <div>
+            <div class="about-card-title">Currently at Marketfeed</div>
+            <div class="about-card-sub">Senior Product Marketing Associate</div>
+          </div>
+        </div>
+        <div class="about-card fi">
+          <div class="about-icon" style="background:var(--purple);">🏆</div>
+          <div>
+            <div class="about-card-title">YC-backed Startup</div>
+            <div class="about-card-sub">Helped scale user AUM to INR 330 Cr</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── EXPERIENCE ─── -->
+<div id="experience" style="border-bottom: var(--border);">
+  <div class="section-wrap">
+    <span class="section-eyebrow">02 / Experience</span>
+    <h2 class="section-title">Where I've Worked</h2>
+
+    <div class="exp-card fi" id="ec-senior">
+      <div class="exp-head" onclick="tog('senior')">
+        <div class="exp-left">
+          <div class="exp-title">Senior Product Marketing Associate</div>
+          <div class="exp-co">Marketfeed (Fundfolio Fintech Pvt Ltd)</div>
+        </div>
+        <div class="exp-right">
+          <div class="exp-period">June 2025 – Present</div>
+          <div class="exp-tog" id="tog-senior">+</div>
+        </div>
+      </div>
+      <div class="exp-body" id="body-senior">
+        <span class="exp-tag" style="background:var(--yellow);">Current Role</span>
+        <ul class="exp-bullets">
+          <li><b>Performance Marketing:</b> Managed Meta ad campaigns to drive user acquisition. Adapted to Meta updates by shifting focus to structured ad concept frameworks; achieved a <b>54% decrease in CPL</b> from ~INR 350 to INR 160.</li>
+          <li><b>Campaign Analytics:</b> Built a custom automated ad campaign dashboard using Google AI Studio, cutting manual tracking effort by <b>~70%</b>. Conducted funnel analysis across GA4, Microsoft Clarity, Posthog, and LookerStudio to reduce onboarding friction and improve retention.</li>
+          <li><b>0-to-1 Product Marketing:</b> Worked across functions to drive end-to-end GTM for Marketfeed's mutual fund offering, from user research and persona identification to messaging strategy and campaign execution.</li>
+          <li><b>Marketing Automation:</b> Implemented automation workflows using CleverTap, Freshsales, Pabbly, and n8n for personalised multi-channel engagement (WhatsApp, Email, SMS, Push).</li>
+          <li><b>Content &amp; Insights:</b> Owned ad scripts, product decks, and webinar content. Conducted direct user conversations to feed qualitative insights back into ad creatives and onboarding flows.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-card fi" id="ec-mid">
+      <div class="exp-head" onclick="tog('mid')">
+        <div class="exp-left">
+          <div class="exp-title">Product Marketing Associate</div>
+          <div class="exp-co">Marketfeed (Fundfolio Fintech Pvt Ltd)</div>
+        </div>
+        <div class="exp-right">
+          <div class="exp-period">Feb 2024 – May 2025</div>
+          <div class="exp-tog" id="tog-mid">+</div>
+        </div>
+      </div>
+      <div class="exp-body" id="body-mid">
+        <ul class="exp-bullets">
+          <li><b>User Acquisition:</b> Drove <b>16% active user growth</b> (1,810 → 2,100) for a high-ticket product through multi-channel acquisition across web and mobile app.</li>
+          <li><b>Conversion Optimisation:</b> Improved webinar attendance rate from <b>14% to ~39%</b> in 3 months through messaging automation, A/B testing, and funnel analysis using GA4 and Microsoft Clarity.</li>
+          <li><b>SEO &amp; Organic Growth:</b> Increased organic search traffic by <b>82% in 6 months</b> by designing a content framework targeting high-intent algo trading keywords.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-card fi" id="ec-junior">
+      <div class="exp-head" onclick="tog('junior')">
+        <div class="exp-left">
+          <div class="exp-title">Content &amp; SEO Specialist</div>
+          <div class="exp-co">Marketfeed (Fundfolio Fintech Pvt Ltd)</div>
+        </div>
+        <div class="exp-right">
+          <div class="exp-period">Oct 2020 – Jan 2024</div>
+          <div class="exp-tog" id="tog-junior">+</div>
+        </div>
+      </div>
+      <div class="exp-body" id="body-junior">
+        <ul class="exp-bullets">
+          <li><b>Content Team:</b> Built and managed the in-house content team, delivering <b>~30% year-on-year organic traffic growth</b>.</li>
+          <li><b>Content Production:</b> Produced <b>270+ published articles</b> on personal finance, IPOs, corporate strategies, and investment topics across website, mobile app, Instagram, and YouTube.</li>
+          <li><b>Financial Research:</b> Published financial markets research and fundamental analysis of listed companies, establishing brand authority in the Indian fintech space.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── SKILLS ─── -->
+<div id="skills" style="border-bottom: var(--border);">
+  <div class="section-wrap">
+    <span class="section-eyebrow">03 / Skills</span>
+    <h2 class="section-title">What I Work With</h2>
+
+    <div class="skill-filters">
+      <button class="filt on" onclick="filterSkills('all',this)">All</button>
+      <button class="filt" onclick="filterSkills('perf',this)">Performance</button>
+      <button class="filt" onclick="filterSkills('analytics',this)">Analytics</button>
+      <button class="filt" onclick="filterSkills('auto',this)">Automation</button>
+      <button class="filt" onclick="filterSkills('seo',this)">SEO &amp; Content</button>
+      <button class="filt" onclick="filterSkills('ai',this)">AI &amp; Tools</button>
+    </div>
+
+    <div class="skills-grid">
+      <div class="skill-card fi" data-cat="perf">
+        <span class="skill-cat" style="background:var(--yellow);">Performance Marketing</span>
+        <p class="skill-tools">Meta Ads, LinkedIn Ads, Google Ads, CPL/CPA optimisation, A/B testing, creative development</p>
+      </div>
+      <div class="skill-card fi" data-cat="analytics">
+        <span class="skill-cat" style="background:var(--teal);">Analytics</span>
+        <p class="skill-tools">GA4, Microsoft Clarity, Posthog, Appsflyer, Google Tag Manager, LookerStudio</p>
+      </div>
+      <div class="skill-card fi" data-cat="auto">
+        <span class="skill-cat" style="background:var(--pink);color:#fff;">Automation &amp; CRM</span>
+        <p class="skill-tools">CleverTap, Freshsales, n8n, Pabbly, WhatsApp/Email/SMS journey mapping</p>
+      </div>
+      <div class="skill-card fi" data-cat="seo">
+        <span class="skill-cat" style="background:var(--purple);color:#fff;">SEO &amp; Content</span>
+        <p class="skill-tools">Keyword research, technical SEO, content architecture, WordPress, Elementor, copywriting</p>
+      </div>
+      <div class="skill-card fi" data-cat="ai">
+        <span class="skill-cat" style="background:var(--green);">AI &amp; Productivity</span>
+        <p class="skill-tools">Google AI Studio, Claude, Figjam, Google Sheets</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── EDUCATION ─── -->
+<div id="education" style="border-bottom: var(--border);">
+  <div class="section-wrap">
+    <span class="section-eyebrow">04 / Education</span>
+    <h2 class="section-title">Where I've Studied</h2>
+
+    <div class="edu-grid">
+      <div class="edu-card fi" style="background:var(--yellow);">
+        <div class="edu-yr">2025 – 2027</div>
+        <div class="edu-deg">MBA in Marketing</div>
+        <div class="edu-sch">Symbiosis School for Online and Digital Learning, Pune</div>
+        <span class="edu-badge" style="background:#fff;">Currently Pursuing</span>
+      </div>
+      <div class="edu-card fi">
+        <div class="edu-yr">2020</div>
+        <div class="edu-deg">Bachelor's Degree in Economics</div>
+        <div class="edu-sch">St Joseph's University, Bengaluru</div>
+        <span class="edu-badge">CGPA: 7.89/10</span>
+      </div>
+      <div class="edu-card fi">
+        <div class="edu-yr">2017</div>
+        <div class="edu-deg">Class XII</div>
+        <div class="edu-sch">Vidyodaya School, Kochi</div>
+        <span class="edu-badge">94%</span>
+      </div>
+    </div>
+
+    <p class="certs-title">Certifications</p>
+    <div class="cert-list">
+      <div class="cert-item fi">
+        <div class="cert-dot" style="background:var(--green);"></div>
+        Google Digital Marketing &amp; E-Commerce Certificate (March 2026)
+      </div>
+      <div class="cert-item fi">
+        <div class="cert-dot" style="background:var(--yellow);"></div>
+        Essential Marketing Frameworks – University of Washington (November 2025)
+      </div>
+      <div class="cert-item fi">
+        <div class="cert-dot" style="background:var(--teal);"></div>
+        The Ultimate SEO Training 2023 + SEO For WordPress Websites (August 2023)
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── CONTACT ─── -->
+<div id="contact">
+  <span class="section-eyebrow">05 / Contact</span>
+  <h2 class="section-title">Let's Talk</h2>
+  <p class="contact-sub">Open to full-time roles in growth marketing, performance marketing, and customer lifecycle management.</p>
+  <div class="contact-chips">
+    <div class="contact-chip">📱 +91 9447825063</div>
+    <div class="contact-chip">✉️ cherianv.25@gmail.com</div>
+    <div class="contact-chip">📍 Bengaluru, India</div>
+  </div>
+  <a href="mailto:cherianv.25@gmail.com" class="btn btn-yellow" style="margin: 0 auto;">Send an Email →</a>
+</div>
+
+<script>
+  // ── Counter animation ──
+  const counted = new Set();
+
+  function animateCount(el) {
+    if (counted.has(el)) return;
+    counted.add(el);
+    const target = parseInt(el.dataset.target);
+    const suffix = el.dataset.suffix || "";
+    const duration = 1600;
+    const start = performance.now();
+    (function tick(now) {
+      const p = Math.min((now - start) / duration, 1);
+      const ease = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.floor(ease * target) + suffix;
+      if (p < 1) requestAnimationFrame(tick);
+    })(start);
+  }
+
+  // ── Intersection Observer ──
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      if (e.target.classList.contains('fi')) e.target.classList.add('vis');
+      e.target.querySelectorAll('[data-target]').forEach(animateCount);
+      if (e.target.dataset.target) animateCount(e.target);
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.fi, .sbar-num, .hstat-num').forEach(el => io.observe(el));
+
+  // ── Accordion ──
+  function tog(id) {
+    const body = document.getElementById('body-' + id);
+    const btn  = document.getElementById('tog-'  + id);
+    const open = body.classList.toggle('open');
+    btn.textContent = open ? '−' : '+';
+    btn.style.background = open ? 'var(--black)' : '';
+    btn.style.color      = open ? 'var(--white)'  : '';
+  }
+
+  // Open current role by default
+  tog('senior');
+
+  // ── Skill filter ──
+  function filterSkills(cat, btn) {
+    document.querySelectorAll('.filt').forEach(b => b.classList.remove('on'));
+    btn.classList.add('on');
+    document.querySelectorAll('.skill-card').forEach(c => {
+      c.classList.toggle('dim', cat !== 'all' && c.dataset.cat !== cat);
+    });
+  }
+
+  // ── Active nav ──
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const navIO = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id));
+      }
+    });
+  }, { threshold: 0.45 });
+
+  ['about','experience','skills','education','contact'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) navIO.observe(el);
+  });
+</script>
+</body>
+</html>
