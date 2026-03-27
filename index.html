@@ -541,6 +541,76 @@
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
     ::-webkit-scrollbar-thumb { background: var(--black); }
+
+    /* ═══ STATS SCROLL ANIMATION (mobile) ═══ */
+    @keyframes stats-scroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    .sbar-dupe { display: none; }
+
+    /* ═══ MOBILE ═══ */
+    @media (max-width: 768px) {
+      /* Nav */
+      nav { padding: 0 14px; gap: 8px; }
+      .nav-logo { font-size: 13px; flex-shrink: 0; }
+      .nav-links { overflow-x: auto; gap: 0; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+      .nav-links::-webkit-scrollbar { display: none; }
+      .nav-links a { font-size: 10px; padding: 4px 9px; letter-spacing: 0.5px; white-space: nowrap; }
+
+      /* Hero */
+      #hero { padding: 88px 24px 56px; flex-direction: column; align-items: flex-start; gap: 32px; }
+      .hero-name { font-size: clamp(44px, 13vw, 72px); letter-spacing: -1px; margin-bottom: 14px; }
+      .hero-sub { font-size: 15px; margin-bottom: 28px; }
+      .hero-ctas { gap: 10px; }
+      .btn { padding: 11px 20px; font-size: 12px; }
+
+      /* Stats bar — horizontal scrolling ticker */
+      #statsbar { padding: 0; overflow: hidden; }
+      .stats-row {
+        display: flex !important;
+        width: max-content;
+        animation: stats-scroll 18s linear infinite;
+      }
+      .stats-row:hover { animation-play-state: paused; }
+      .sbar-dupe { display: flex; }
+      .sbar-item {
+        flex-direction: row;
+        align-items: center;
+        padding: 20px 28px;
+        gap: 12px;
+        text-align: left;
+      }
+      .sbar-num { font-size: 22px; }
+      .sbar-lbl { max-width: 130px; font-size: 11px; }
+
+      /* Sections */
+      .section-wrap { padding: 48px 20px; }
+      .section-title { font-size: clamp(22px, 7vw, 32px); margin-bottom: 24px; }
+
+      /* Experience cards */
+      .exp-head { flex-direction: column; align-items: flex-start; gap: 6px; }
+      .exp-right { width: 100%; flex-direction: row; justify-content: space-between; align-items: center; }
+      .exp-title { font-size: 15px; }
+      .exp-co { font-size: 11px; }
+      .exp-period { font-size: 11px; }
+      .exp-bullets li { font-size: 13px; }
+
+      /* Skills */
+      .skills-grid { grid-template-columns: 1fr; }
+      .skill-filters { gap: 6px; }
+      .filt { padding: 6px 12px; font-size: 11px; }
+
+      /* Education */
+      .edu-grid { grid-template-columns: 1fr; }
+
+      /* About */
+      .about-text { font-size: 14px; }
+
+      /* Contact */
+      #contact { padding: 48px 24px; }
+      .contact-chip { font-size: 12px; padding: 8px 14px; }
+    }
   </style>
 </head>
 <body>
@@ -623,6 +693,23 @@
       <span class="sbar-lbl">Customer Engagement Automation</span>
     </div>
     <div class="sbar-item">
+      <span class="sbar-num">270+</span>
+      <span class="sbar-lbl">Articles Published</span>
+    </div>
+    <!-- Duplicates for seamless mobile scroll loop -->
+    <div class="sbar-item sbar-dupe">
+      <span class="sbar-num">5.5</span>
+      <span class="sbar-lbl">Years of Experience</span>
+    </div>
+    <div class="sbar-item sbar-dupe">
+      <span class="sbar-num" style="font-size:20px;">CPL / CAC / ROAS</span>
+      <span class="sbar-lbl">Optimisation</span>
+    </div>
+    <div class="sbar-item sbar-dupe">
+      <span class="sbar-num" style="font-size:18px;">AI-based</span>
+      <span class="sbar-lbl">Customer Engagement Automation</span>
+    </div>
+    <div class="sbar-item sbar-dupe">
       <span class="sbar-num">270+</span>
       <span class="sbar-lbl">Articles Published</span>
     </div>
