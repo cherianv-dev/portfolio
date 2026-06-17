@@ -456,7 +456,6 @@
       transition: transform 0.12s, box-shadow 0.12s, opacity 0.2s;
     }
     .skill-card:hover { transform: translate(-2px,-2px); box-shadow: var(--shadow); }
-    .skill-card.dim { opacity: 0.18; }
 
     .skill-cat {
       display: inline-block;
@@ -943,9 +942,9 @@
 
     <div class="edu-grid">
       <div class="edu-card fi" style="background:var(--yellow);">
-        <div class="edu-yr">2025 - 2027</div>
+        <div class="edu-yr" style="color:var(--black);">2025 - 2027</div>
         <div class="edu-deg">MBA in Marketing</div>
-        <div class="edu-sch">Symbiosis School for Online and Digital Learning, Pune</div>
+        <div class="edu-sch" style="color:var(--black);">Symbiosis School for Online and Digital Learning, Pune</div>
         <span class="edu-badge" style="background:#fff;">Currently Pursuing</span>
       </div>
       <div class="edu-card fi">
@@ -1048,7 +1047,7 @@
     document.querySelectorAll('.filt').forEach(b => b.classList.remove('on'));
     btn.classList.add('on');
     document.querySelectorAll('.skill-card').forEach(c => {
-      c.classList.toggle('dim', cat !== 'all' && c.dataset.cat !== cat);
+      c.style.display = (cat === 'all' || c.dataset.cat === cat) ? '' : 'none';
     });
   }
 
